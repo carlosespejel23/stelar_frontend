@@ -22,7 +22,7 @@ Frontend de Stellar, la plataforma SaaS edtech para docentes en México. Constru
 
 ## Arquitectura del frontend
 
-### Estructura de carpetas
+### Estructura de carpetas (aun faltan carpetas y archivos, pero esta es la estructura base que se seguirá)
 
 ```
 frontend/src/
@@ -59,50 +59,17 @@ frontend/src/
 │   ├── types.ts                    # Tipos de autenticación
 │   ├── utils/
 │   │   └── error-message.ts        # Formateo de errores de auth
-│   └── view/
-│       └── jwt/                    # Vistas de auth JWT
-│           ├── jwt-sign-in-view.tsx
-│           └── jwt-sign-up-view.tsx
+│   └── view/                       # Vistas de auth JWT
+│       ├── sign-in-view.tsx        # Vista de login
+│       └── sign-up-view.tsx        # Vista de registro
 │
 ├── components/                     # Componentes reutilizables del paquete
-│   ├── animate/                    # Animaciones (Framer Motion)
-│   │   ├── motion-container.tsx, motion-viewport.tsx, motion-lazy.tsx
-│   │   ├── scroll-progress/       # Barra de progreso de scroll
-│   │   └── variants/              # Variantes de animación (fade, slide, zoom, etc.)
-│   ├── custom-popover/             # Popover personalizado
-│   ├── file-thumbnail/             # Preview de archivos
-│   ├── flag-icon/                  # Iconos de banderas
-│   ├── hook-form/                  # Integración React Hook Form + MUI
-│   │   ├── form-provider.tsx       # FormProvider wrapper
-│   │   ├── rhf-text-field.tsx      # TextField controlado por RHF
-│   │   ├── rhf-select.tsx          # Select controlado por RHF
-│   │   ├── rhf-checkbox.tsx        # Checkbox controlado por RHF
-│   │   ├── rhf-autocomplete.tsx    # Autocomplete controlado por RHF
-│   │   ├── rhf-date-picker.tsx     # DatePicker controlado por RHF
-│   │   ├── rhf-radio-group.tsx     # RadioGroup controlado por RHF
-│   │   ├── rhf-switch.tsx          # Switch controlado por RHF
-│   │   ├── rhf-slider.tsx          # Slider controlado por RHF
-│   │   ├── rhf-rating.tsx          # Rating controlado por RHF
-│   │   └── schema-utils.ts        # Utilidades de validación (Zod)
-│   ├── iconify/                    # Sistema de iconos (Iconify)
-│   ├── label/                      # Componente Label (badges/chips estilizados)
-│   ├── loading-screen/             # Pantallas de carga y splash
-│   ├── logo/                       # Logo de la app
-│   ├── nav-section/                # Componentes de navegación
-│   │   ├── components/             # Subcomponentes (collapse, dropdown, subheader)
-│   │   ├── horizontal/             # Navegación horizontal
-│   │   ├── mini/                   # Navegación mini/colapsada
-│   │   ├── vertical/              # Navegación vertical (sidebar)
-│   │   └── styles/                 # Estilos y CSS vars de nav
-│   ├── progress-bar/               # Barra de progreso (top of page)
-│   ├── scrollbar/                  # Scrollbar personalizado
-│   ├── search-not-found/           # Estado vacío de búsqueda
-│   ├── settings/                   # Panel de configuración visual
-│   │   ├── context/                # Context de settings (tema, layout, etc.)
-│   │   └── drawer/                 # Drawer de configuración visual
-│   └── svg-color/                  # Wrapper para colorear SVGs
+│   ├── ...                         # Componentes atómicos (buttons, inputs, cards, tables, modals, etc.)
 │
 ├── layouts/                        # Layouts de página
+│   ├── auth-centered/              # Layout de auth (pantalla centrada)
+│   │   ├── layout.tsx              # Layout principal
+│   │   └── content.tsx             # Contenido del formulario
 │   ├── auth-split/                 # Layout de auth (pantalla dividida)
 │   │   ├── layout.tsx              # Layout principal
 │   │   ├── content.tsx             # Contenido del formulario
@@ -136,9 +103,8 @@ frontend/src/
 │
 ├── pages/                          # Páginas (una por ruta, lazy-loaded)
 │   ├── auth/
-│   │   └── jwt/
-│   │       ├── sign-in.tsx         # Página de login
-│   │       └── sign-up.tsx         # Página de registro
+│   │   ├── sign-in.tsx             # Página de login
+│   │   └── sign-up.tsx             # Página de registro
 │   ├── dashboard/                  # Páginas del dashboard
 │   │   ├── one.tsx ... six.tsx     # Páginas placeholder (por renombrar)
 │   └── error/
@@ -349,7 +315,7 @@ La autenticación ya está estructurada en `src/auth/`:
 - **`guard/guest-guard.tsx`**: Protege rutas de auth (redirige si ya logueado).
 - **`guard/role-based-guard.tsx`**: Protege por rol/permiso.
 - **`hooks/use-auth-context.ts`**: Hook para acceder al estado de auth.
-- **`view/jwt/`**: Vistas de sign-in y sign-up.
+- **`view/`**: Vistas de sign-in y sign-up.
 
 ### 8. Rutas: `routes/paths.ts`
 
@@ -363,10 +329,8 @@ const ROOTS = {
 
 export const paths = {
   auth: {
-    jwt: {
-      signIn: `${ROOTS.AUTH}/jwt/sign-in`,
-      signUp: `${ROOTS.AUTH}/jwt/sign-up`,
-    },
+    signIn: `${ROOTS.AUTH}/sign-in`,
+    signUp: `${ROOTS.AUTH}/sign-up`,
   },
   dashboard: {
     root: ROOTS.DASHBOARD,
